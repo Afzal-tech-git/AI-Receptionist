@@ -1,0 +1,7 @@
+name: "Default Clinic"
+faqs:
+  hours: "Mon-Fri: 9:00-17:00, Sat: 10:00-14:00"
+  services: "Consultation, Follow-ups, Nutrition Guidance"
+  pricing: "Consultation $49, Follow-up $29"
+calendar:
+  calendar_id: "primary"

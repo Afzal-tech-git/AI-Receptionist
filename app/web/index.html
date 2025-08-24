@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AI Receptionist</title>
+    <style>
+body{font-family:system-ui;margin:20px;max-width:680px}
+    #log{border:1px solid 
+    #ddd;padding:10px;height:340px;overflow:auto;border-radius:8px}
+
+    input,button{padding:10px;margin-top:10px}
+    .me{color:#333}
+    .bot{color:#0a7}
+    </style>
+</head>
+<body>
+    <h2>AI Receptionist - Chat</h2>
+    <div id="log"></div>
+    <input id="msg" placeholder="Type your message...." />
+    <button onclick="send()">Send</button>
+<script>
+const API = "http://localhost:8000";
+const client = "default";
+const log = document.getElementById('log');
+
+function add(role, text){
+    const P = document.createElement('p');
+    P.className = role === 'me' ? 'me' : 'bot';
+    P.textContent = (role === 'me' ? 'you: ' : 'Bot: ') + text;
+    log.appendChild(p); log.scrollTop = log.scrollHeight;
+}
+async function send(){
+    const m = document.getElementById('msg').value.trim();
+    if(!m) return;
+    add('me', m);
+    document.getElementById('msg').value= '';
+    const r = await fetch('${API}/chat',
+    {
+        method: 'POST',
+        headers:
+        {'Content-Type': 'application/json'},
+        body: JSON.stringify({message:m,client})
+    });
+    const data = await r.json();
+    add('bot', data.reply);
+}
+</script>
+</body>
+</html>
